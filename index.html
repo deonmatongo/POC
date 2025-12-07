@@ -439,6 +439,10 @@
     <div class="header" role="header">
     <div class="pageHeaderWrapper">
         <div class="navbarnew align-center mainHeader containerMax d-flex justify-space-between">
+  <!-- Logo placeholder -->
+  <a class="nav-logo logo-placeholder" title="Logo placeholder" href="/" style="display: block; width: 150px; height: 40px; background-color: #f0f0f0; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999; text-decoration: none; font-size: 12px;">
+    [LOGO PLACEHOLDER]
+  </a>
   
 <div class="navbar main-menu mobile-mega-menu">
     <nav>
@@ -2183,18 +2187,30 @@ background-color: #1E6BD6 !important;
 .searchlink-wrapper .searchBarForm .searchIcon i {
 color: #fff !important;
 }
-/* Hide all logos */
-.nav-logo,
-.headerLogo,
-.homepageheaderLogo,
-.footerLogo,
+/* Hide all logos except placeholders */
+.headerLogo:not(.logo-placeholder),
+.homepageheaderLogo:not(.logo-placeholder),
+.footerLogo:not(.logo-placeholder),
 .quote_logo,
-img[src*="logo"],
-img[src*="Logo"],
+img[src*="logo"]:not([src*="placeholder"]),
+img[src*="Logo"]:not([src*="placeholder"]),
 .cmp-image img[src*="kf-logo"],
-[class*="logo"] img {
+[class*="logo"] img:not(.logo-placeholder img) {
 display: none !important;
 visibility: hidden !important;
+}
+/* Show logo placeholders */
+.logo-placeholder {
+display: flex !important;
+visibility: visible !important;
+}
+.nav-logo.logo-placeholder {
+display: flex !important;
+visibility: visible !important;
+}
+.footerLogo.logo-placeholder {
+display: flex !important;
+visibility: visible !important;
 }
 /* Featured Insights section - change all green/teal to blue */
 .categoryCardSection .sectionHeading,
@@ -2349,6 +2365,10 @@ font-size: 1.5rem;
     
     <div class="footer" role="footer">
     <div class="footerUpper containerMax d-flex justify-space-between align-center">
+        <!-- Logo placeholder -->
+        <div class="footerLogo logo-placeholder" style="display: block; width: 150px; height: 40px; background-color: #f0f0f0; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px;">
+          [LOGO PLACEHOLDER]
+        </div>
 
         <ul class="socialmedialist list-none footerSocialIcons d-flex"><li class="linkedin">
     <a href="https://www.linkedin.com/company/kornferry">
