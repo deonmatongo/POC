@@ -338,7 +338,6 @@
   "@type": "Organization",
   "name": "POC | Organizational Consulting",
   "url": "https://www.kornferry.com/",
-  "logo": "https://www.kornferry.com/content/experience-fragments/kornferry-v2/en/header/master/_jcr_content/root/header/mainHeader%20containerMax%20d-flex%20justify-space-between%20align-center/homepageheaderLogo.coreimg.svg/1739348432386/kf-logo-white.svg",
   "sameAs": [
     "https://www.linkedin.com/company/kornferry/",
     "https://twitter.com/Korn_Ferry",
@@ -440,40 +439,6 @@
     <div class="header" role="header">
     <div class="pageHeaderWrapper">
         <div class="navbarnew align-center mainHeader containerMax d-flex justify-space-between">
-  <a class="nav-logo" title="kornferry logo" href="/">
-    <div class="headerLogo image">
-<div data-cmp-is="image" data-cmp-lazythreshold="0" data-cmp-src="/content/experience-fragments/kornferry-v2/en/header/master/_jcr_content/root/header/mainHeader%20containerMax%20d-flex%20justify-space-between%20align-center/headerLogo.coreimg{.width}.svg/1738567242801/kf-logo-blue.svg" data-asset="/content/dam/kornferry-v2/dev/kf-logo-blue.svg" data-asset-id="de79133b-0184-4836-b51f-b641c3507353" id="image-bfd0119e56" class="cmp-image" itemscope="" itemtype="http://schema.org/ImageObject">
-    
-        
-            
-            <img src="images/kf-logo-blue.svg" class="cmp-image__image" itemprop="contentUrl" data-cmp-hook-image="image">
-            
-        
-    
-    
-    
-</div>
-
-    
-</div>
-
-    <div class="homepageheaderLogo image">
-<div data-cmp-is="image" data-cmp-lazythreshold="0" data-cmp-src="/content/experience-fragments/kornferry-v2/en/header/master/_jcr_content/root/header/mainHeader%20containerMax%20d-flex%20justify-space-between%20align-center/homepageheaderLogo.coreimg{.width}.svg/1739348432386/kf-logo-white.svg" data-asset="/content/dam/kornferry-v2/dev/kf-logo-white.svg" data-asset-id="e4dd142b-f41c-4948-b12f-077ed377b283" id="image-ca9914a2bc" class="cmp-image" itemscope="" itemtype="http://schema.org/ImageObject">
-    
-        
-            
-            <img src="images/kf-logo-white.svg" class="cmp-image__image" itemprop="contentUrl" data-cmp-hook-image="image">
-            
-        
-    
-    
-    
-</div>
-
-    
-</div>
-
-  </a>
   
 <div class="navbar main-menu mobile-mega-menu">
     <nav>
@@ -2218,6 +2183,54 @@ background-color: #1E6BD6 !important;
 .searchlink-wrapper .searchBarForm .searchIcon i {
 color: #fff !important;
 }
+/* Hide all logos */
+.nav-logo,
+.headerLogo,
+.homepageheaderLogo,
+.footerLogo,
+.quote_logo,
+img[src*="logo"],
+img[src*="Logo"],
+.cmp-image img[src*="kf-logo"],
+[class*="logo"] img {
+display: none !important;
+visibility: hidden !important;
+}
+/* Featured Insights section - change all green/teal to blue */
+.categoryCardSection .sectionHeading,
+.categoryCardSection .headingWrapper .sectionHeading {
+color: #1E6BD6 !important;
+}
+.categoryCardSection .headingWrapper::after,
+.categoryCardSection .headingWrapper::before {
+border-color: #1E6BD6 !important;
+background-color: #1E6BD6 !important;
+}
+.featureCard,
+.featureCardWrapper,
+.featuredCardContentWrapper {
+background-color: #1E6BD6 !important;
+}
+.featuredCardContentWrapper h3,
+.featuredCardContentWrapper h2 {
+color: #fff !important;
+}
+.categoryCard .card-label span,
+.categoryCard .card-label {
+color: #1E6BD6 !important;
+}
+.categoryCard .card-heading h4 {
+color: #1E6BD6 !important;
+}
+.categoryCard a:hover .card-heading h4 {
+color: #4A5CFF !important;
+}
+.categoryCard .cardcontainerwrapper {
+background-color: #1E6BD6 !important;
+}
+.categoryCard .cardcontainerwrapper .card-heading h4 {
+color: #fff !important;
+}
 .kf_home_page_banner .feature-multified-wrapper .feature-item .feature-text a span {
 font-size: 1.75rem;
 }
@@ -2336,21 +2349,6 @@ font-size: 1.5rem;
     
     <div class="footer" role="footer">
     <div class="footerUpper containerMax d-flex justify-space-between align-center">
-        <div class="image footerLogo">
-<div data-cmp-is="image" data-cmp-lazythreshold="0" data-cmp-src="/content/experience-fragments/kornferry-v2/en/footer/master/_jcr_content/root/footer/footerLogo.coreimg{.width}.svg/1739348448531/kf-logo-white.svg" data-asset="/content/dam/kornferry-v2/dev/kf-logo-white.svg" data-asset-id="e4dd142b-f41c-4948-b12f-077ed377b283" id="image-acd62d35f0" class="cmp-image" itemscope="" itemtype="http://schema.org/ImageObject">
-    <a class="cmp-image__link" href="/" data-cmp-hook-image="link">
-        
-            
-            <img src="images/kf-logo-white_1.svg" class="cmp-image__image" itemprop="contentUrl" data-cmp-hook-image="image">
-            
-        
-    </a>
-    
-    
-</div>
-
-    
-</div>
 
         <ul class="socialmedialist list-none footerSocialIcons d-flex"><li class="linkedin">
     <a href="https://www.linkedin.com/company/kornferry">
