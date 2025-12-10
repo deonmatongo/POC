@@ -837,15 +837,40 @@
 
 <style>
 .kf_home_page_banner .hero_bg:before{
-background-image: url(images/hero-architecture-sky.jpg);
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url(images/hector-j-rivas-1FxMET2U5dU-unsplash.jpg);
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
+z-index: 1;
+}
+.kf_home_page_banner .hero_bg .video-version,
+.kf_home_page_banner .hero_bg .desktop-video {
+    display: none !important;
 }
 .kf_home_page_banner .hero_bg {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    position: relative !important;
+    background-image: url(images/hector-j-rivas-1FxMET2U5dU-unsplash.jpg) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    min-height: 150vh !important;
+    height: 150vh !important;
+}
+@media (max-width: 768px) {
+    .kf_home_page_banner .hero_bg {
+        min-height: 150vh !important;
+        height: 150vh !important;
+    }
 }
 .hero-text {
     position: relative !important;
