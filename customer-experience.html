@@ -116,6 +116,131 @@
         html {
           scroll-behavior: smooth;
         }
+        /* Modern Language Selector Styles */
+        .language-selector-wrapper {
+          margin-right: 20px;
+          position: relative;
+        }
+        .language-selector {
+          position: relative;
+          display: inline-block;
+        }
+        .language-selector-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 6px;
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: inherit;
+        }
+        .language-selector-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+        .language-selector-btn:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
+        }
+        .language-code {
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          min-width: 28px;
+          color: #ffffff;
+        }
+        .language-arrow {
+          transition: transform 0.3s ease;
+          color: #ffffff;
+        }
+        .language-selector.active .language-arrow {
+          transform: rotate(180deg);
+        }
+        .language-dropdown-menu {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          min-width: 140px;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 1000;
+          overflow: hidden;
+        }
+        .language-selector.active .language-dropdown-menu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+        .language-option {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 12px 16px;
+          background: transparent;
+          border: none;
+          text-align: left;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+          font-family: inherit;
+          font-size: 14px;
+          color: #333;
+        }
+        .language-option:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+        .language-option:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+        .language-option:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+        .language-option:focus {
+          outline: 2px solid rgba(0, 123, 255, 0.5);
+          outline-offset: -2px;
+        }
+        .language-option.active {
+          background: rgba(0, 123, 255, 0.1);
+          color: #007bff;
+        }
+        .language-option.active .language-code {
+          font-weight: 700;
+        }
+        .language-label {
+          flex: 1;
+          margin-right: 12px;
+        }
+        .language-option .language-code {
+          font-weight: 600;
+          color: inherit;
+          opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+          .language-selector-wrapper {
+            margin-right: 10px;
+          }
+          .language-selector-btn {
+            padding: 6px 10px;
+            font-size: 13px;
+          }
+          .language-dropdown-menu {
+            right: 0;
+            min-width: 120px;
+          }
+        }
       </style>
       
       
@@ -451,9 +576,13 @@
         
         
         
+            <li class="nav-item">
+                <a href="index.html" title="Home" class="dropdown-item menu-item" data-i18n="nav.home">Home</a>
+            </li>
+        
             <li class="nav-item expertiseWrap">
                 
-                    <a href="#" title="Expertise" class="dropdown-item menu-item">Expertise</a>
+                    <a href="#" title="Expertise" class="dropdown-item menu-item" data-i18n="nav.expertise">Expertise</a>
                     
 
 				
@@ -499,7 +628,7 @@
         
             <li class="nav-item solutionWrap">
                 
-                    <a href="#" title="Solutions" class="dropdown-item menu-item">Solutions</a>
+                    <a href="#" title="Solutions" class="dropdown-item menu-item" data-i18n="nav.solutions">Solutions</a>
                     
 
 				
@@ -544,7 +673,7 @@
         
             <li class="nav-item aboutWrap">
                 
-                    <a href="#" title="About" class="dropdown-item menu-item">About</a>
+                    <a href="#" title="About" class="dropdown-item menu-item" data-i18n="nav.about">About</a>
                     
 
 				
@@ -558,7 +687,7 @@
                    			</h4>
                             </li>
 							
-                            <li><a href="about-us.html" target="_self" title="Our Story">Our Story</a>
+                            <li><a href="about-us.html" target="_self" title="Our Story" data-i18n="nav.ourStory">Our Story</a>
                                 
                                 
 
@@ -576,7 +705,7 @@
                 
 
 				
-                    <a href="index.html#contact" title="Contact" class="dropdown-item menu-item">Contact</a>
+                    <a href="index.html#contact" title="Contact" class="dropdown-item menu-item" data-i18n="nav.contact">Contact</a>
                     
                 
             </li>
@@ -589,11 +718,26 @@
 
 
   <div class="headerSearchArea">
-    <div class="dropdown language-dropdown d-flex" style="display:none;">
-      <button class="btn" role="button" type="button" id="dropdownMenuButton" aria-haspopup="true">
-      <span class="lang-dropdown-icon"><i class="fal fa-globe"></i></span>
-    </button>   
-  </div>
+    <div class="language-selector-wrapper">
+      <div class="language-selector" id="languageSelector">
+        <button class="language-selector-btn" id="languageBtn" aria-label="Select language" aria-haspopup="true">
+          <span class="language-code" id="currentLang">EN</span>
+          <svg class="language-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="language-dropdown-menu" id="languageMenu" role="menu">
+          <button class="language-option active" data-lang="en" role="menuitem">
+            <span class="language-label">English</span>
+            <span class="language-code">EN</span>
+          </button>
+          <button class="language-option" data-lang="fr" role="menuitem">
+            <span class="language-label">Français</span>
+            <span class="language-code">FR</span>
+          </button>
+        </div>
+      </div>
+    </div>
     <ul class="list-none d-flex align-center">
       <li class="savedFolder">
         <a href="/saved"><i class="fas fa-folder" aria-hidden="true"></i>SAVED</a>
@@ -642,7 +786,7 @@
 
         <div class="progress-bar-section">
           <div class="containerMax">
-            <p>POC | Organizational Consulting</p>
+            <p data-i18n="progress.text">POC | Organizational Consulting</p>
             <div class="back-to-top">
               <span class="right-text">Back to top</span>
               <span class="icon-sec"><i class="fas fa-arrow-up"></i></span>
@@ -688,18 +832,23 @@ background-color: rgba(0, 0, 0, 0.5);
 .hero-text {
     position: relative !important;
     top: auto !important;
-    transform: none !important;
+    transform: translateY(-90px) !important;
     text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
-.hero-text h1 {
-    font-size: 2.5rem !important;
+.kf_home_page_banner .hero-text h1,
+.kf_home_page_banner .hero-text h1 .skew-text {
+    font-size: 55px !important;
 }
 .hero-text h2 {
     font-size: 1.25rem !important;
 }
 @media (max-width: 768px) {
-    .hero-text h1 {
-        font-size: 2rem !important;
+    .kf_home_page_banner .hero-text h1,
+    .kf_home_page_banner .hero-text h1 .skew-text {
+        font-size: 55px !important;
     }
     .hero-text h2 {
         font-size: 1.1rem !important;
@@ -725,7 +874,7 @@ background-color: rgba(0, 0, 0, 0.5);
                 <!-- Add a div to hold the selected image -->
                 <div id="random-image" class="random-image"></div>
                <div class="hero-text cssanimation">
-                  <h1><span class="skew-text">Customer Experience</span></h1>
+                  <h1><span class="skew-text" data-i18n="pages.customerExperience">Customer Experience</span></h1>
                </div>
             </div>
          
@@ -737,17 +886,17 @@ background-color: rgba(0, 0, 0, 0.5);
     <div class="text-image-accordion aem-GridColumn aem-GridColumn--default--12">
         <div class="containerMax" style="padding: 80px 20px; max-width: 1200px; margin: 0 auto;">
             <div class="text-content-section" style="text-align: center; margin-bottom: 60px;">
-                <h2 class="sectionHeading" style="font-size: 2.5rem; font-weight: 600; color: #1B1F23; margin-bottom: 30px; line-height: 1.3;">
+                <h2 class="sectionHeading" style="font-size: 2.5rem; font-weight: 600; color: #1B1F23; margin-bottom: 30px; line-height: 1.3;" data-i18n="pages.customerExperience">
                     Customer Experience
                 </h2>
             </div>
             
             <div class="content-wrapper" style="max-width: 900px; margin: 0 auto;">
                 <div class="intro-text" style="font-size: 1.25rem; line-height: 1.9; color: #333; text-align: left; margin-bottom: 40px;">
-                    <p style="margin-bottom: 25px;">
+                    <p style="margin-bottom: 25px;" data-i18n="content.customerExperience1">
                         In today's market, transactional interactions are no longer enough to satisfy clients, differentiate your brand, or secure long-term loyalty. What sets leading organizations apart is the ability to deliver meaningful experiences at every touchpoint. POC International partners with your business to transform routine exchanges into exceptional client journeys, anchored in efficiency, accuracy, and a deep understanding of client needs.
                     </p>
-                    <p style="margin-bottom: 0;">
+                    <p style="margin-bottom: 0;" data-i18n="content.customerExperience2">
                         By fostering a culture that prioritizes the client first, organizations strengthen retention and unlock new avenues for growth. POC International helps you cultivate a positive work environment and a sustainable enterprise culture where employees thrive. In turn, your teams are empowered to deliver excellence consistently, creating client experiences that build trust and drive durable business outcomes.
                     </p>
                 </div>
@@ -1276,4 +1425,85 @@ background-color: rgba(0, 0, 0, 0.5);
     
 
 
+<script src="js/simple-translator.js"></script>
+<script>
+// Language Selector Functionality with Translation
+(function() {
+  // Initialize translator
+  const translator = new SimpleTranslator({
+    defaultLanguage: 'en',
+    persist: true,
+    persistKey: 'selectedLanguage',
+    filesLocation: 'i18n'
+  });
+  
+  const languageSelector = document.getElementById('languageSelector');
+  const languageBtn = document.getElementById('languageBtn');
+  const languageMenu = document.getElementById('languageMenu');
+  const currentLang = document.getElementById('currentLang');
+  const languageOptions = document.querySelectorAll('.language-option');
+  
+  // Get current language from localStorage or default to 'en'
+  let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+  
+  // Update UI based on current language
+  function updateLanguageDisplay(lang) {
+    currentLang.textContent = lang.toUpperCase();
+    languageOptions.forEach(option => {
+      if (option.dataset.lang === lang) {
+        option.classList.add('active');
+      } else {
+        option.classList.remove('active');
+      }
+    });
+  }
+  
+  // Initialize translator and UI
+  translator.translatePageTo(currentLanguage).then(() => {
+    updateLanguageDisplay(currentLanguage);
+  });
+  
+  // Toggle dropdown
+  languageBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    languageSelector.classList.toggle('active');
+  });
+  
+  // Handle language selection
+  languageOptions.forEach(option => {
+    option.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const selectedLang = this.dataset.lang;
+      
+      if (selectedLang !== currentLanguage) {
+        currentLanguage = selectedLang;
+        localStorage.setItem('selectedLanguage', selectedLang);
+        updateLanguageDisplay(selectedLang);
+        
+        // Translate the page
+        translator.translatePageTo(selectedLang).then(() => {
+          console.log('Page translated to:', selectedLang);
+        });
+      }
+      
+      languageSelector.classList.remove('active');
+    });
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!languageSelector.contains(e.target)) {
+      languageSelector.classList.remove('active');
+    }
+  });
+  
+  // Close dropdown on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && languageSelector.classList.contains('active')) {
+      languageSelector.classList.remove('active');
+      languageBtn.focus();
+    }
+  });
+})();
+</script>
 </body></html>

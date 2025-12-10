@@ -116,6 +116,145 @@
         html {
           scroll-behavior: smooth;
         }
+        /* Prevent flickering during language switch */
+        body.translating [data-i18n],
+        body.translating [data-i18n-html],
+        body.translating [data-i18n-placeholder],
+        body.translating [data-i18n-title] {
+          transition: opacity 0.15s ease-in-out;
+        }
+        /* Smooth text transitions */
+        [data-i18n],
+        [data-i18n-html],
+        [data-i18n-placeholder],
+        [data-i18n-title] {
+          will-change: contents;
+        }
+        /* Modern Language Selector Styles */
+        .language-selector-wrapper {
+          margin-right: 20px;
+          position: relative;
+        }
+        .language-selector {
+          position: relative;
+          display: inline-block;
+        }
+        .language-selector-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 6px;
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: inherit;
+        }
+        .language-selector-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+        .language-selector-btn:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
+        }
+        .language-code {
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          min-width: 28px;
+          color: #ffffff;
+        }
+        .language-arrow {
+          transition: transform 0.3s ease;
+          color: #ffffff;
+        }
+        .language-selector.active .language-arrow {
+          transform: rotate(180deg);
+        }
+        .language-dropdown-menu {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          min-width: 140px;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 1000;
+          overflow: hidden;
+        }
+        .language-selector.active .language-dropdown-menu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+        .language-option {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 12px 16px;
+          background: transparent;
+          border: none;
+          text-align: left;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+          font-family: inherit;
+          font-size: 14px;
+          color: #333;
+        }
+        .language-option:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+        .language-option:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+        .language-option:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+        .language-option:focus {
+          outline: 2px solid rgba(0, 123, 255, 0.5);
+          outline-offset: -2px;
+        }
+        .language-option.active {
+          background: rgba(0, 123, 255, 0.1);
+          color: #007bff;
+        }
+        .language-option.active .language-code {
+          font-weight: 700;
+        }
+        .language-label {
+          flex: 1;
+          margin-right: 12px;
+        }
+        .language-option .language-code {
+          font-weight: 600;
+          color: inherit;
+          opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+          .language-selector-wrapper {
+            margin-right: 10px;
+          }
+          .language-selector-btn {
+            padding: 6px 10px;
+            font-size: 13px;
+          }
+          .language-dropdown-menu {
+            right: 0;
+            min-width: 120px;
+          }
+        }
       </style>
       
       
@@ -451,9 +590,13 @@
         
         
         
+            <li class="nav-item">
+                <a href="index.html" title="Home" class="dropdown-item menu-item" data-i18n="nav.home">Home</a>
+            </li>
+        
             <li class="nav-item expertiseWrap">
                 
-                    <a href="#" title="Expertise" class="dropdown-item menu-item">Expertise</a>
+                    <a href="#" title="Expertise" class="dropdown-item menu-item" data-i18n="nav.expertise">Expertise</a>
                     
 
 				
@@ -499,7 +642,7 @@
         
             <li class="nav-item solutionWrap">
                 
-                    <a href="#" title="Solutions" class="dropdown-item menu-item">Solutions</a>
+                    <a href="#" title="Solutions" class="dropdown-item menu-item" data-i18n="nav.solutions">Solutions</a>
                     
 
 				
@@ -544,7 +687,7 @@
         
             <li class="nav-item aboutWrap">
                 
-                    <a href="#" title="About" class="dropdown-item menu-item">About</a>
+                    <a href="#" title="About" class="dropdown-item menu-item" data-i18n="nav.about">About</a>
                     
 
 				
@@ -576,7 +719,7 @@
                 
 
 				
-                    <a href="#contact" title="Contact" class="dropdown-item menu-item">Contact</a>
+                    <a href="#contact" title="Contact" class="dropdown-item menu-item" data-i18n="nav.contact">Contact</a>
                     
                 
             </li>
@@ -589,14 +732,29 @@
 
 
   <div class="headerSearchArea">
-    <div class="dropdown language-dropdown d-flex" style="display:none;">
-      <button class="btn" role="button" type="button" id="dropdownMenuButton" aria-haspopup="true">
-      <span class="lang-dropdown-icon"><i class="fal fa-globe"></i></span>
-    </button>   
-  </div>
+    <div class="language-selector-wrapper">
+      <div class="language-selector" id="languageSelector">
+        <button class="language-selector-btn" id="languageBtn" aria-label="Select language" aria-haspopup="true">
+          <span class="language-code" id="currentLang">EN</span>
+          <svg class="language-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="language-dropdown-menu" id="languageMenu" role="menu">
+          <button class="language-option active" data-lang="en" role="menuitem">
+            <span class="language-label">English</span>
+            <span class="language-code">EN</span>
+          </button>
+          <button class="language-option" data-lang="fr" role="menuitem">
+            <span class="language-label">Français</span>
+            <span class="language-code">FR</span>
+          </button>
+        </div>
+      </div>
+    </div>
     <ul class="list-none d-flex align-center">
       <li class="savedFolder">
-        <a href="/saved"><i class="fas fa-folder" aria-hidden="true"></i>SAVED</a>
+        <a href="/saved"><i class="fas fa-folder" aria-hidden="true"></i><span data-i18n="homepage.saved">SAVED</span></a>
       </li>
       <li class="searchWrapper d-flex align-center" id="searchNavMobileWrapper">
         <span class="searchIcon"><i class="fas fa-search" aria-hidden="true"></i></span>
@@ -642,7 +800,7 @@
 
         <div class="progress-bar-section">
           <div class="containerMax">
-            <p>POC | Organizational Consulting</p>
+            <p data-i18n="progress.text">POC | Organizational Consulting</p>
             <div class="back-to-top">
               <span class="right-text">Back to top</span>
               <span class="icon-sec"><i class="fas fa-arrow-up"></i></span>
@@ -679,7 +837,34 @@
 
 <style>
 .kf_home_page_banner .hero_bg:before{
-background-color: rgba(0, 0, 0, 0.5);
+background-image: url(images/hero-architecture-sky.jpg);
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+.kf_home_page_banner .hero_bg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.hero-text {
+    position: relative !important;
+    top: auto !important;
+    transform: translateY(-90px) !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.kf_home_page_banner .hero-text h1,
+.kf_home_page_banner .hero-text h1 .skew-text {
+    font-size: 55px !important;
+}
+@media (max-width: 768px) {
+    .kf_home_page_banner .hero-text h1,
+    .kf_home_page_banner .hero-text h1 .skew-text {
+        font-size: 55px !important;
+    }
 }
 </style>
 <div class="kf_home_page_banner transparentHeader">
@@ -701,13 +886,7 @@ background-color: rgba(0, 0, 0, 0.5);
                 <!-- Add a div to hold the selected image -->
                 <div id="random-image" class="random-image"></div>
                <div class="hero-text cssanimation">
-                  <h1><span class="skew-text">RISE ABOVE LIMITS</span></h1>
-<h2>From where you stand to where you strive—we make the journey possible.</h2>
-
-                  <div class="cta-btn">
-                     <a href="#challenge" role="button" title="How Can We Help You?" target="_self">How Can We Help You?</a>
-                     
-                     </div>
+                  <h1><span class="skew-text" data-i18n-html="hero.title">From where you stand to where you strive<br><br>We make the journey possible.</span></h1>
                </div>
                 <!-- feature items -->
                 <div class="feature-multified-wrapper owl-carousel">
@@ -717,7 +896,7 @@ background-color: rgba(0, 0, 0, 0.5);
                             </div>
                             <div class="feature-text">
                                 <a href="/insights/featured-topics/workforce-management/workforce-planning-insights" target="_self">
-                                    <h2>Optimize performance.</h2>
+                                    <h2 data-i18n="features.optimize">Optimize performance.</h2>
 
                                 </a>
                             </div>
@@ -728,7 +907,7 @@ background-color: rgba(0, 0, 0, 0.5);
                             </div>
                             <div class="feature-text">
                                 <a href="/about-us/press/korn-ferry-research-unveils-top-talent-acquisition-trends-shaping-2026" target="_self">
-                                    <h2>Maximize potential.</h2>
+                                    <h2 data-i18n="features.maximize">Maximize potential.</h2>
 
                                 </a>
                             </div>
@@ -739,7 +918,7 @@ background-color: rgba(0, 0, 0, 0.5);
                             </div>
                             <div class="feature-text">
                                 <a href="/insights/briefings-magazine/issue-71" target="_self">
-                                    <h2>Deliver Results.</h2>
+                                    <h2 data-i18n="features.deliver">Deliver Results.</h2>
 
                                 </a>
                             </div>
@@ -756,45 +935,45 @@ background-color: rgba(0, 0, 0, 0.5);
       <div class="bottom-article-wrapper">
       <div class="bottom-article-sec">
       <div class="left-text">
-      <h2 class="desktop-title">THIS WEEK IN LEADERSHIP</h2>
+      <h2 class="desktop-title" data-i18n="leadership.title">THIS WEEK IN LEADERSHIP</h2>
       </div>
       <div class="right-article-list owl-carousel">
       <div class="article-title">
-      <a href="/insights/this-week-in-leadership/i-know-im-great-thank-you" title="I Know I’m Great, Thank You">I Know I’m Great, Thank You</a>
+      <a href="/insights/this-week-in-leadership/i-know-im-great-thank-you" title="I Know I'm Great, Thank You" data-i18n="articleTitles.iKnowImGreat">I Know I'm Great, Thank You</a>
           <div class="tag-date">
-              <span>Article</span>
+              <span data-i18n="articles.article">Article</span>
               <span>Dec 2, 2025</span>
           </div>
       </div>
       
       <div class="article-title">
-      <a href="/insights/this-week-in-leadership/top-leadership-decisions-of-2025" title="Top Leadership Decisions of 2025  ">Top Leadership Decisions of 2025  </a>
+      <a href="/insights/this-week-in-leadership/top-leadership-decisions-of-2025" title="Top Leadership Decisions of 2025  " data-i18n="articleTitles.topLeadershipDecisions">Top Leadership Decisions of 2025  </a>
           <div class="tag-date">
-              <span>Article</span>
+              <span data-i18n="articles.article">Article</span>
               <span>Dec 2, 2025</span>
           </div>
       </div>
       
       <div class="article-title">
-      <a href="/insights/this-week-in-leadership/the-end-of-year-squeeze-on-middle-managers" title="The End-of-Year Squeeze on Middle Managers">The End-of-Year Squeeze on Middle Managers</a>
+      <a href="/insights/this-week-in-leadership/the-end-of-year-squeeze-on-middle-managers" title="The End-of-Year Squeeze on Middle Managers" data-i18n="articleTitles.endOfYearSqueeze">The End-of-Year Squeeze on Middle Managers</a>
           <div class="tag-date">
-              <span>Article</span>
+              <span data-i18n="articles.article">Article</span>
               <span>Dec 2, 2025</span>
           </div>
       </div>
       
       <div class="article-title">
-      <a href="/insights/this-week-in-leadership/this-holiday-season-the-soft-sell" title="This Holiday Season, the Soft Sell ">This Holiday Season, the Soft Sell </a>
+      <a href="/insights/this-week-in-leadership/this-holiday-season-the-soft-sell" title="This Holiday Season, the Soft Sell " data-i18n="articleTitles.holidaySeasonSoftSell">This Holiday Season, the Soft Sell </a>
           <div class="tag-date">
-              <span>Article</span>
+              <span data-i18n="articles.article">Article</span>
               <span>Dec 2, 2025</span>
           </div>
       </div>
       
       <div class="article-title">
-      <a href="/insights/this-week-in-leadership/podcast-episode-60-mind-meld" title="Briefings Podcast: Mind Meld">Briefings Podcast: Mind Meld</a>
+      <a href="/insights/this-week-in-leadership/podcast-episode-60-mind-meld" title="Briefings Podcast: Mind Meld" data-i18n="articleTitles.mindMeldPodcast">Briefings Podcast: Mind Meld</a>
           <div class="tag-date">
-              <span>Podcast</span>
+              <span data-i18n="articles.podcast">Podcast</span>
               <span>Dec 1, 2025</span>
           </div>
       </div>
@@ -824,7 +1003,7 @@ background-color: rgba(0, 0, 0, 0.5);
 			<div class="headingWrapper">
 				
 				<!-- H2 for all other classnames -->
-				<h2 class=" sectionHeading text-center"> Featured Insights</h2>
+				<h2 class=" sectionHeading text-center" data-i18n="homepage.featuredInsights"> Featured Insights</h2>
 				
 				
 			</div>
@@ -848,8 +1027,8 @@ background-color: rgba(0, 0, 0, 0.5);
 				</div>
 			</div>
 			<div class="featuredCardContentWrapper">
-				<h3>HIGHLIGHT</h3>
-				<h2>The Mind Meld</h2>
+				<h3 data-i18n="homepage.highlight">HIGHLIGHT</h3>
+				<h2 data-i18n="homepage.mindMeld">The Mind Meld</h2>
 			</div>
 			<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
 				<path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
@@ -877,7 +1056,7 @@ background-color: rgba(0, 0, 0, 0.5);
           </div>
           <div class="cardcontainerwrapper">
           <div class="card-label">
-            <span>Organizational Transformation</span>
+            <span data-i18n="homepage.organizationalTransformation">Organizational Transformation</span>
           </div>
           <div class="card-heading">
             <h4>How Employees Really React to Pay Transparency</h4>
@@ -906,7 +1085,7 @@ background-color: rgba(0, 0, 0, 0.5);
           </div>
           <div class="cardcontainerwrapper">
           <div class="card-label">
-            <span>Employee Experience</span>
+            <span data-i18n="homepage.employeeExperience">Employee Experience</span>
           </div>
           <div class="card-heading">
             <h4>POC's Global Total Rewards Pulse Survey</h4>
@@ -935,7 +1114,7 @@ background-color: rgba(0, 0, 0, 0.5);
           </div>
           <div class="cardcontainerwrapper">
           <div class="card-label">
-            <span>Organizational Transformation</span>
+            <span data-i18n="homepage.organizationalTransformation">Organizational Transformation</span>
           </div>
           <div class="card-heading">
             <h4>7 Reasons Companies Still Hesitate on Pay Transparency</h4>
@@ -1051,7 +1230,7 @@ background-color: rgba(0, 0, 0, 0.5);
           </div>
           <div class="cardcontainerwrapper">
           <div class="card-label">
-            <span>Sales Transformation</span>
+            <span data-i18n="homepage.salesTransformation">Sales Transformation</span>
           </div>
           <div class="card-heading">
             <h4>How to Close Complex Tech Deals Without Discounting</h4>
@@ -1080,10 +1259,10 @@ background-color: rgba(0, 0, 0, 0.5);
           </div>
           <div class="cardcontainerwrapper">
           <div class="card-label">
-            <span>Leadership</span>
+            <span data-i18n="homepage.leadership">Leadership</span>
           </div>
           <div class="card-heading">
-            <h4>POC’s Annual Report on Board Evaluations</h4>
+            <h4>POC's Annual Report on Board Evaluations</h4>
           </div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
@@ -1107,8 +1286,8 @@ background-color: rgba(0, 0, 0, 0.5);
 
 <div class="htmlContent"><div class="bp-container">
 <div class="boilerplate containerMax">
-<h2>Your organization is full of potential<br> <span class="x-bold">we're here to unleash it</span></h2>
-<p>POC is a global consulting firm that powers performance. We unlock the potential in your people and unleash transformation across your business—synchronizing strategy, operations, and talent to accelerate performance, fuel growth, and inspire a legacy of change. That’s why the world’s most forward-thinking companies across every major industry turn to us—for a shared commitment to lasting impact and the bold ambition to Be More Than.</p>
+<h2 data-i18n-html="homepage.boilerplateTitle">Your organization is full of potential<br> <span class="x-bold">we're here to unleash it</span></h2>
+<p data-i18n="homepage.boilerplateText">POC is a global consulting firm that powers performance. We unlock the potential in your people and unleash transformation across your business—synchronizing strategy, operations, and talent to accelerate performance, fuel growth, and inspire a legacy of change. That's why the world's most forward-thinking companies across every major industry turn to us—for a shared commitment to lasting impact and the bold ambition to Be More Than.</p>
 
 </div>
 </div>
@@ -1166,36 +1345,36 @@ top: 0;
 <div class="searchlinks aem-GridColumn aem-GridColumn--default--12">
     <div class=" searchlink-wrapper">
         <div class="searchlink-heading">
-            <h2>What business challenge are you looking to solve?</h2>
+            <h2 data-i18n="homepage.challengeTitle">What business challenge are you looking to solve?</h2>
             <p></p>
         </div>
         
             <div class="searchlink-btn"> 
                     <a href="/capabilities/organization-strategy" role="button" title="Driving organizational change" target="_self">
-                        Driving organizational change</a> 
+                        <span data-i18n="homepage.challenge1">Driving organizational change</span></a> 
              
                     <a href="/capabilities/total-rewards-program" role="button" title="Managing talent costs" target="_self">
-                        Managing talent costs</a> 
+                        <span data-i18n="homepage.challenge2">Managing talent costs</span></a> 
              
                     <a href="/capabilities/business-transformation/sales-effectiveness" role="button" title="Improving sales results" target="_self">
-                        Improving sales results</a> 
+                        <span data-i18n="homepage.challenge3">Improving sales results</span></a> 
              
                     <a href="/capabilities/talent-acquisition" role="button" title="Scaling recruitment" target="_self">
-                        Scaling recruitment</a> 
+                        <span data-i18n="homepage.challenge4">Scaling recruitment</span></a> 
              
                     <a href="/capabilities/leadership-professional-development" role="button" title="Identifying and developing leaders" target="_self">
-                        Identifying and developing leaders</a> 
+                        <span data-i18n="homepage.challenge5">Identifying and developing leaders</span></a> 
              
                     <a href="/capabilities/assessment-succession" role="button" title="Leveraging talent data" target="_self">
-                        Leveraging talent data</a> 
+                        <span data-i18n="homepage.challenge6">Leveraging talent data</span></a> 
              
                     <a href="/careers" role="button" title="My next career move" target="_self">
-                        My next career move</a> 
+                        <span data-i18n="homepage.challenge7">My next career move</span></a> 
             </div>
         
         <form id="searchNavMobile" class="searchBarForm d-flex align-center" action="/seachresult" @submit.prevent="doSearch">
             <span class="searchIcon"><i class="fas fa-search" aria-hidden="true"></i></span>
-            <input id="searchNavInput" name="query" v-model="query" @focus="searchBoxInputFocusEvent" @blur="searchBoxInputBlurEvent" @keyup.up="searchInputKeyUp" @keyup.down="searchInputKeyDown" type="text" class="searchBar" placeholder="I need to identify future leaders…" aria-label="Search" aria-describedby="Search" role="combobox" aria-autocomplete="list">
+            <input id="searchNavInput" name="query" v-model="query" @focus="searchBoxInputFocusEvent" @blur="searchBoxInputBlurEvent" @keyup.up="searchInputKeyUp" @keyup.down="searchInputKeyDown" type="text" class="searchBar" data-i18n-placeholder="homepage.searchPlaceholder" placeholder="I need to identify future leaders…" aria-label="Search" aria-describedby="Search" role="combobox" aria-autocomplete="list">
         </form>
     </div>
 
@@ -1408,7 +1587,7 @@ display: none;
   
   <div class="contact-header text-center">
     
-    <h2><span class="x-bold">Change starts with a conversation</span><br>
+    <h2 data-i18n-html="homepage.contactTitle"><span class="x-bold">Change starts with a conversation</span><br>
 </h2>
 
   </div>
@@ -1864,31 +2043,31 @@ font-size: 1.5rem;
         <div class="footerMiddle d-flex justify-space-between">
             <span class="footerLinksWrapper"><ul class="list-none">
    	<li class="headerFooterLink">
-		<a href="/capabilities" target="_self">Capabilities</a>
+		<a href="/capabilities" target="_self" data-i18n="footer.capabilities">Capabilities</a>
     </li>
  
    	<li>
-		<a href="/capabilities/business-transformation" target="_self">Business Transformation</a>
+		<a href="/capabilities/business-transformation" target="_self" data-i18n="footer.businessTransformation">Business Transformation</a>
     </li>
  
    	<li>
-		<a href="/capabilities/organization-strategy" target="_self">Organization Strategy</a>
+		<a href="/capabilities/organization-strategy" target="_self" data-i18n="footer.organizationStrategy">Organization Strategy</a>
     </li>
  
    	<li>
-		<a href="/capabilities/total-rewards-program" target="_self">Total Rewards</a>
+		<a href="/capabilities/total-rewards-program" target="_self" data-i18n="footer.totalRewards">Total Rewards</a>
     </li>
  
    	<li>
-		<a href="/capabilities/assessment-succession" target="_self">Assessment & Succession</a>
+		<a href="/capabilities/assessment-succession" target="_self" data-i18n="footer.assessmentSuccession">Assessment & Succession</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-acquisition" target="_self">Talent Acquisition</a>
+		<a href="/capabilities/talent-acquisition" target="_self" data-i18n="footer.talentAcquisition">Talent Acquisition</a>
     </li>
  
    	<li>
-		<a href="/capabilities/leadership-professional-development" target="_self">Leadership & Professional Development</a>
+		<a href="/capabilities/leadership-professional-development" target="_self" data-i18n="footer.leadershipDevelopment">Leadership & Professional Development</a>
     </li>
  </ul>
 
@@ -1896,35 +2075,35 @@ font-size: 1.5rem;
 </span>
             <span class="footerLinksWrapper"><ul class="list-none">
    	<li class="headerFooterLink">
-		<a href="/industries" target="_blank">Industries</a>
+		<a href="/industries" target="_blank" data-i18n="footer.industries">Industries</a>
     </li>
  
    	<li>
-		<a href="/industries/consumer-markets" target="_self">Consumer Markets</a>
+		<a href="/industries/consumer-markets" target="_self" data-i18n="footer.consumerMarkets">Consumer Markets</a>
     </li>
  
    	<li>
-		<a href="/industries/financial-services" target="_self">Financial Services</a>
+		<a href="/industries/financial-services" target="_self" data-i18n="footer.financialServices">Financial Services</a>
     </li>
  
    	<li>
-		<a href="/industries/healthcare-consulting-services" target="_self">Healthcare</a>
+		<a href="/industries/healthcare-consulting-services" target="_self" data-i18n="footer.healthcare">Healthcare</a>
     </li>
  
    	<li>
-		<a href="/industries/life-sciences-consulting" target="_self">Life Sciences</a>
+		<a href="/industries/life-sciences-consulting" target="_self" data-i18n="footer.lifeSciences">Life Sciences</a>
     </li>
  
    	<li>
-		<a href="/industries/industrial" target="_self">Industrial</a>
+		<a href="/industries/industrial" target="_self" data-i18n="footer.industrial">Industrial</a>
     </li>
  
    	<li>
-		<a href="/industries/technology" target="_self">Technology</a>
+		<a href="/industries/technology" target="_self" data-i18n="footer.technology">Technology</a>
     </li>
  
    	<li>
-		<a href="/industries/government-and-public-services" target="_self">Government & Public Services</a>
+		<a href="/industries/government-and-public-services" target="_self" data-i18n="footer.governmentPublicServices">Government & Public Services</a>
     </li>
  </ul>
 
@@ -1932,59 +2111,59 @@ font-size: 1.5rem;
 </span>
             <span class="footerLinksWrapper"><ul class="list-none">
    	<li class="headerFooterLink">
-		<a href="/functions" target="_self">Functions</a>
+		<a href="/functions" target="_self" data-i18n="footer.functions">Functions</a>
     </li>
  
    	<li>
-		<a href="/capabilities/board-ceo-services" target="_self">Board & CEO Services</a>
+		<a href="/capabilities/board-ceo-services" target="_self" data-i18n="footer.boardCeoServices">Board & CEO Services</a>
     </li>
  
    	<li>
-		<a href="/functions/accounting-recruiting" target="_self">Accounting</a>
+		<a href="/functions/accounting-recruiting" target="_self" data-i18n="footer.accounting">Accounting</a>
     </li>
  
    	<li>
-		<a href="/functions/corporate-affairs-recruiting" target="_self">Corporate Affairs</a>
+		<a href="/functions/corporate-affairs-recruiting" target="_self" data-i18n="footer.corporateAffairs">Corporate Affairs</a>
     </li>
  
    	<li>
-		<a href="/functions/cybersecurity-recruiting" target="_self">Cybersecurity</a>
+		<a href="/functions/cybersecurity-recruiting" target="_self" data-i18n="footer.cybersecurity">Cybersecurity</a>
     </li>
  
    	<li>
-		<a href="/functions/finance-recruiting" target="_self">Financial Services</a>
+		<a href="/functions/finance-recruiting" target="_self" data-i18n="footer.financialServices">Financial Services</a>
     </li>
  
    	<li>
-		<a href="/functions/human-resources-recruiting" target="_self">Human Resources</a>
+		<a href="/functions/human-resources-recruiting" target="_self" data-i18n="footer.humanResources">Human Resources</a>
     </li>
  
    	<li>
-		<a href="/functions/digital-technology-recruiting" target="_self">Information Technology</a>
+		<a href="/functions/digital-technology-recruiting" target="_self" data-i18n="footer.informationTechnology">Information Technology</a>
     </li>
  
    	<li>
-		<a href="/functions/legal-recruiting" target="_self">Legal</a>
+		<a href="/functions/legal-recruiting" target="_self" data-i18n="footer.legal">Legal</a>
     </li>
  
    	<li>
-		<a href="/functions/marketing-recruiting" target="_self">Marketing</a>
+		<a href="/functions/marketing-recruiting" target="_self" data-i18n="footer.marketing">Marketing</a>
     </li>
  
    	<li>
-		<a href="/functions/risk-management-recruiting" target="_self">Risk Management</a>
+		<a href="/functions/risk-management-recruiting" target="_self" data-i18n="footer.riskManagement">Risk Management</a>
     </li>
  
    	<li>
-		<a href="/functions/sales-recruiting" target="_self">Sales</a>
+		<a href="/functions/sales-recruiting" target="_self" data-i18n="footer.sales">Sales</a>
     </li>
  
    	<li>
-		<a href="/functions/supply-chain-recruiting" target="_self">Supply Chain</a>
+		<a href="/functions/supply-chain-recruiting" target="_self" data-i18n="footer.supplyChain">Supply Chain</a>
     </li>
  
    	<li>
-		<a href="/functions/sustainability-recruiting" target="_self">Sustainability</a>
+		<a href="/functions/sustainability-recruiting" target="_self" data-i18n="footer.sustainability">Sustainability</a>
     </li>
  </ul>
 
@@ -1992,31 +2171,31 @@ font-size: 1.5rem;
 </span>
             <span class="footerLinksWrapper"><ul class="list-none">
    	<li class="headerFooterLink">
-		<a href="/capabilities/talent-suite" target="_self">Products</a>
+		<a href="/capabilities/talent-suite" target="_self" data-i18n="footer.products">Products</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-suite" target="_self">Talent Suite Overview</a>
+		<a href="/capabilities/talent-suite" target="_self" data-i18n="footer.talentSuiteOverview">Talent Suite Overview</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-suite/korn-ferry-architect" target="_self">POC Architect</a>
+		<a href="/capabilities/talent-suite/korn-ferry-architect" target="_self" data-i18n="footer.pocArchitect">POC Architect</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-suite/korn-ferry-assess" target="_self">POC Assess</a>
+		<a href="/capabilities/talent-suite/korn-ferry-assess" target="_self" data-i18n="footer.pocAssess">POC Assess</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-suite/korn-ferry-listen" target="_self">POC Listen</a>
+		<a href="/capabilities/talent-suite/korn-ferry-listen" target="_self" data-i18n="footer.pocListen">POC Listen</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-suite/korn-ferry-pay" target="_self">POC Pay</a>
+		<a href="/capabilities/talent-suite/korn-ferry-pay" target="_self" data-i18n="footer.pocPay">POC Pay</a>
     </li>
  
    	<li>
-		<a href="/capabilities/talent-suite/korn-ferry-sell" target="_self">POC Sell</a>
+		<a href="/capabilities/talent-suite/korn-ferry-sell" target="_self" data-i18n="footer.pocSell">POC Sell</a>
     </li>
  </ul>
 
@@ -2024,19 +2203,19 @@ font-size: 1.5rem;
 </span>
             <span class="footerLinksWrapper"><ul class="list-none">
    	<li class="headerFooterLink">
-		<a href="/careers" target="_self">Careers</a>
+		<a href="/careers" target="_self" data-i18n="footer.careers">Careers</a>
     </li>
  
    	<li>
-		<a href="/careers/candidates" target="_self">Jobs with our clients</a>
+		<a href="/careers/candidates" target="_self" data-i18n="footer.jobsWithClients">Jobs with our clients</a>
     </li>
  
    	<li>
-		<a href="https://www.kfadvance.com" target="_blank">Advance your career</a>
+		<a href="https://www.kfadvance.com" target="_blank" data-i18n="footer.advanceCareer">Advance your career</a>
     </li>
  
    	<li>
-		<a href="/careers/join-korn-ferry" target="_self">Join POC</a>
+		<a href="/careers/join-korn-ferry" target="_self" data-i18n="footer.joinPoc">Join POC</a>
     </li>
  </ul>
 
@@ -2044,35 +2223,35 @@ font-size: 1.5rem;
 </span>
             <span class="footerLinksWrapper"><ul class="list-none">
    	<li class="headerFooterLink">
-		<a href="/about-us" target="_self">About</a>
+		<a href="/about-us" target="_self" data-i18n="footer.about">About</a>
     </li>
  
    	<li>
-		<a href="about-us.html" target="_self">Our Story</a>
+		<a href="about-us.html" target="_self" data-i18n="footer.ourStory">Our Story</a>
     </li>
  
    	<li>
-		<a href="/about-us/consultants" target="_self">Find a Consultant</a>
+		<a href="/about-us/consultants" target="_self" data-i18n="footer.findConsultant">Find a Consultant</a>
     </li>
  
    	<li>
-		<a href="/about-us/global-offices" target="_self">Find an Office</a>
+		<a href="/about-us/global-offices" target="_self" data-i18n="footer.findOffice">Find an Office</a>
     </li>
  
    	<li>
-		<a href="/about-us/business-impact" target="_self">Business Impact</a>
+		<a href="/about-us/business-impact" target="_self" data-i18n="footer.businessImpact">Business Impact</a>
     </li>
  
    	<li>
-		<a href="/about-us/corporate-responsibility" target="_self">Corporate Responsibility</a>
+		<a href="/about-us/corporate-responsibility" target="_self" data-i18n="footer.corporateResponsibility">Corporate Responsibility</a>
     </li>
  
    	<li>
-		<a href="https://ir.kornferry.com" target="_blank">Investor Relations</a>
+		<a href="https://ir.kornferry.com" target="_blank" data-i18n="footer.investorRelations">Investor Relations</a>
     </li>
  
    	<li>
-		<a href="/about-us/press" target="_self">Newsroom</a>
+		<a href="/about-us/press" target="_self" data-i18n="footer.newsroom">Newsroom</a>
     </li>
  </ul>
 
@@ -2089,7 +2268,7 @@ font-size: 1.5rem;
 <div class="textComponent  whiteBg  previewmode">																		  
 	<div class="textContainerMax textcontent max800"> 
 		
-		<p>© <span id="auto-year-update"></span> POC. All rights reserved.</p>
+		<p data-i18n="footer.copyright">© <span id="auto-year-update"></span> POC. All rights reserved.</p>
 
 		
     
@@ -2109,7 +2288,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="/contact" target="_self">
-            <span class="cmp-list__item-title">Contact</span>
+            <span class="cmp-list__item-title" data-i18n="footer.contact">Contact</span>
         </a>
     </article>
 </li>
@@ -2117,7 +2296,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="https://store.kornferry.com/" target="_blank">
-            <span class="cmp-list__item-title">Store</span>
+            <span class="cmp-list__item-title" data-i18n="footer.store">Store</span>
         </a>
     </article>
 </li>
@@ -2125,7 +2304,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="/subscribe" target="_self">
-            <span class="cmp-list__item-title">Subscribe </span>
+            <span class="cmp-list__item-title" data-i18n="footer.subscribe">Subscribe </span>
         </a>
     </article>
 </li>
@@ -2133,7 +2312,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="/terms" target="_self">
-            <span class="cmp-list__item-title">Terms </span>
+            <span class="cmp-list__item-title" data-i18n="footer.terms">Terms </span>
         </a>
     </article>
 </li>
@@ -2149,7 +2328,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="/cookies" target="_self">
-            <span class="cmp-list__item-title">Cookies</span>
+            <span class="cmp-list__item-title" data-i18n="footer.cookies">Cookies</span>
         </a>
     </article>
 </li>
@@ -2165,7 +2344,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="/ccpa" target="_self">
-            <span class="cmp-list__item-title">Do Not Sell My Info</span>
+            <span class="cmp-list__item-title" data-i18n="footer.doNotSell">Do Not Sell My Info</span>
         </a>
     </article>
 </li>
@@ -2173,7 +2352,7 @@ font-size: 1.5rem;
     <li class="cmp-list__item  headerFooterLink ">
     <article>
         <a class="cmp-list__item-link" href="/accessibility" target="_self">
-            <span class="cmp-list__item-title">Accessibility</span>
+            <span class="cmp-list__item-title" data-i18n="footer.accessibility">Accessibility</span>
         </a>
     </article>
 </li>
@@ -2375,4 +2554,194 @@ font-size: 1.5rem;
     
 
 
+<script src="js/simple-translator.js"></script>
+<script>
+// Language Selector Functionality with Translation - Optimized to prevent flickering
+(function() {
+  // Initialize translator
+  const translator = new SimpleTranslator({
+    defaultLanguage: 'en',
+    persist: true,
+    persistKey: 'selectedLanguage',
+    filesLocation: 'i18n'
+  });
+  
+  const languageSelector = document.getElementById('languageSelector');
+  const languageBtn = document.getElementById('languageBtn');
+  const languageMenu = document.getElementById('languageMenu');
+  const currentLang = document.getElementById('currentLang');
+  const languageOptions = document.querySelectorAll('.language-option');
+  
+  // Get current language from localStorage or default to 'en'
+  let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+  let isLanguageChanging = false;
+  
+  // Update UI based on current language (only visual, no translation)
+  function updateLanguageDisplay(lang) {
+    currentLang.textContent = lang.toUpperCase();
+    languageOptions.forEach(option => {
+      if (option.dataset.lang === lang) {
+        option.classList.add('active');
+      } else {
+        option.classList.remove('active');
+      }
+    });
+  }
+  
+  // Smooth language change without flickering
+  async function changeLanguage(newLang) {
+    // Prevent concurrent language changes
+    if (isLanguageChanging || newLang === currentLanguage) {
+      return;
+    }
+    
+    isLanguageChanging = true;
+    
+    try {
+      // Ensure translation is loaded before updating
+      await translator.load(newLang);
+      
+      // Update translations first, then UI
+      await translator.translatePageTo(newLang);
+      
+      // Update UI only after translations are applied
+      currentLanguage = newLang;
+      updateLanguageDisplay(newLang);
+      
+      // Update copyright year if needed
+      updateCopyrightYear(newLang);
+      
+      // Translate Marketo form if available (non-blocking)
+      translateMarketoFormAsync(newLang);
+      
+    } catch (error) {
+      console.error('Language change error:', error);
+    } finally {
+      isLanguageChanging = false;
+    }
+  }
+  
+  // Update copyright year with current language
+  function updateCopyrightYear(lang) {
+    const year = new Date().getFullYear();
+    const copyrightEl = document.querySelector('[data-i18n="footer.copyright"]');
+    if (copyrightEl && translator.translations[lang]) {
+      const translation = translator.translate('footer.copyright', lang, {year: year});
+      copyrightEl.innerHTML = translation;
+    }
+  }
+  
+  // Translate Marketo form asynchronously (doesn't block language change)
+  function translateMarketoFormAsync(lang) {
+    if (window.MktoForms2 && window.jQuery) {
+      MktoForms2.whenReady(function(form) {
+        const formEl = form.getFormElem();
+        
+        // Only add data-i18n attributes if not already present
+        formEl.find('label').each(function() {
+          const $label = jQuery(this);
+          if (!$label.attr('data-i18n')) {
+            const text = $label.text().trim();
+            
+            // Common form field translations
+            if (text.toLowerCase().includes('first name') || text.toLowerCase().includes('prénom')) {
+              $label.attr('data-i18n', 'contactForm.firstName');
+            } else if (text.toLowerCase().includes('last name') || text.toLowerCase().includes('nom de famille')) {
+              $label.attr('data-i18n', 'contactForm.lastName');
+            } else if (text.toLowerCase().includes('email') || text.toLowerCase().includes('courriel')) {
+              $label.attr('data-i18n', 'contactForm.email');
+            } else if (text.toLowerCase().includes('company') || text.toLowerCase().includes('entreprise')) {
+              $label.attr('data-i18n', 'contactForm.company');
+            } else if (text.toLowerCase().includes('phone') || text.toLowerCase().includes('téléphone')) {
+              $label.attr('data-i18n', 'contactForm.phone');
+            }
+          }
+        });
+        
+        // Translate submit button
+        formEl.find('button[type="submit"], input[type="submit"]').each(function() {
+          const $btn = jQuery(this);
+          if (!$btn.attr('data-i18n') && $btn.val() && 
+              ($btn.val().toLowerCase().includes('submit') || $btn.val().toLowerCase().includes('soumettre'))) {
+            $btn.attr('data-i18n', 'contactForm.submit');
+          }
+        });
+        
+        // Re-run translation for form elements only
+        requestAnimationFrame(() => {
+          formEl.find('[data-i18n]').each(function() {
+            const $el = jQuery(this);
+            const key = $el.attr('data-i18n');
+            const translation = translator.translate(key, lang);
+            $el.text(translation);
+          });
+        });
+      });
+    }
+  }
+  
+  // Preload all languages on page load to prevent flickering
+  const availableLanguages = ['en', 'fr'];
+  translator.preloadAll(availableLanguages).then(() => {
+    // Initialize with current language after preloading
+    translator.translatePageTo(currentLanguage).then(() => {
+      updateLanguageDisplay(currentLanguage);
+      updateCopyrightYear(currentLanguage);
+    });
+  });
+  
+  // Toggle dropdown
+  languageBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    languageSelector.classList.toggle('active');
+  });
+  
+  // Handle language selection
+  languageOptions.forEach(option => {
+    option.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const selectedLang = this.dataset.lang;
+      
+      if (selectedLang !== currentLanguage && !isLanguageChanging) {
+        // Close dropdown immediately for better UX
+        languageSelector.classList.remove('active');
+        
+        // Change language smoothly
+        changeLanguage(selectedLang);
+      }
+    });
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!languageSelector.contains(e.target)) {
+      languageSelector.classList.remove('active');
+    }
+  });
+  
+  // Close dropdown on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && languageSelector.classList.contains('active')) {
+      languageSelector.classList.remove('active');
+      languageBtn.focus();
+    }
+  });
+  
+  // Initialize Marketo form translation after page load (non-blocking)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => translateMarketoFormAsync(currentLanguage), 500);
+    });
+  } else {
+    setTimeout(() => translateMarketoFormAsync(currentLanguage), 500);
+  }
+  
+  // Also translate when Marketo form loads
+  if (window.MktoForms2) {
+    MktoForms2.whenReady(function() {
+      translateMarketoFormAsync(currentLanguage);
+    });
+  }
+})();
+</script>
 </body></html>
