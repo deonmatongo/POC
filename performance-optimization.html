@@ -565,8 +565,8 @@
     <div class="pageHeaderWrapper">
         <div class="navbarnew align-center mainHeader containerMax d-flex justify-space-between">
   <!-- Logo placeholder -->
-  <a class="nav-logo logo-placeholder" title="Logo placeholder" href="/" style="display: block; width: 150px; height: 40px; background-color: #f0f0f0; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999; text-decoration: none; font-size: 12px;">
-    [LOGO PLACEHOLDER]
+  <a class="nav-logo" title="Logo" href="/" style="display: block;">
+    <img src="images/logo.png" alt="Logo" style="height: 120px; width: auto;">
   </a>
   
 <div class="navbar main-menu mobile-mega-menu">
@@ -828,6 +828,14 @@ background-color: rgba(0, 0, 0, 0.5);
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    min-height: 60vh !important;
+    height: 60vh !important;
+}
+@media (max-width: 768px) {
+    .kf_home_page_banner .hero_bg {
+        min-height: 50vh !important;
+        height: 50vh !important;
+    }
 }
 .hero-text {
     position: relative !important;
@@ -913,8 +921,8 @@ background-color: rgba(0, 0, 0, 0.5);
     <div class="footer" role="footer">
     <div class="footerUpper containerMax d-flex justify-space-between align-center">
         <!-- Logo placeholder -->
-        <div class="footerLogo logo-placeholder" style="display: block; width: 150px; height: 40px; background-color: #f0f0f0; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px;">
-          [LOGO PLACEHOLDER]
+        <div class="footerLogo" style="display: block;">
+          <img src="images/logo.png" alt="Logo" style="height: 120px; width: auto;">
         </div>
 
         <ul class="socialmedialist list-none footerSocialIcons d-flex"><li class="linkedin">
