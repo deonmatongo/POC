@@ -566,7 +566,7 @@
         <div class="navbarnew align-center mainHeader containerMax d-flex justify-space-between">
   <!-- Logo placeholder -->
   <a class="nav-logo" title="Logo" href="/" style="display: block;">
-    <img src="images/logo.png" alt="Logo" style="height: 120px; width: auto;">
+    <img src="images/logo.png" alt="Logo" style="height: 80px; width: auto;">
   </a>
   
 <div class="navbar main-menu mobile-mega-menu">
@@ -840,7 +840,7 @@ background-color: rgba(0, 0, 0, 0.5);
 .hero-text {
     position: relative !important;
     top: auto !important;
-    transform: translateY(-90px) !important;
+    transform: none !important;
     text-align: center !important;
     display: flex !important;
     align-items: center !important;
@@ -849,6 +849,8 @@ background-color: rgba(0, 0, 0, 0.5);
 .kf_home_page_banner .hero-text h1,
 .kf_home_page_banner .hero-text h1 .skew-text {
     font-size: 55px !important;
+    color: white !important;
+    opacity: 1 !important;
 }
 .hero-text h2 {
     font-size: 1.25rem !important;
@@ -856,10 +858,51 @@ background-color: rgba(0, 0, 0, 0.5);
 @media (max-width: 768px) {
     .kf_home_page_banner .hero-text h1,
     .kf_home_page_banner .hero-text h1 .skew-text {
-        font-size: 55px !important;
+        font-size: 32px !important;
+        line-height: 1.2 !important;
+        padding: 0 20px !important;
+        color: white !important;
+        opacity: 1 !important;
+    }
+    .hero-text {
+        transform: none !important;
+        padding: 20px !important;
     }
     .hero-text h2 {
         font-size: 1.1rem !important;
+    }
+    /* Mobile Responsive Styles */
+    .containerMax {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    .text-content-section {
+        padding: 40px 15px !important;
+    }
+    .intro-text {
+        padding: 0 15px !important;
+        font-size: 1rem !important;
+    }
+    h2.sectionHeading {
+        font-size: 1.75rem !important;
+        line-height: 1.3 !important;
+    }
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+@media (max-width: 480px) {
+    .kf_home_page_banner .hero-text h1,
+    .kf_home_page_banner .hero-text h1 .skew-text {
+        font-size: 24px !important;
+    }
+    .containerMax {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    .text-content-section {
+        padding: 30px 10px !important;
     }
 }
 </style>
@@ -894,9 +937,6 @@ background-color: rgba(0, 0, 0, 0.5);
     <div class="text-image-accordion aem-GridColumn aem-GridColumn--default--12">
         <div class="containerMax" style="padding: 80px 20px; max-width: 1200px; margin: 0 auto;">
             <div class="text-content-section" style="text-align: center; margin-bottom: 60px;">
-                <h2 class="sectionHeading" style="font-size: 2.5rem; font-weight: 600; color: #1B1F23; margin-bottom: 30px; line-height: 1.3;" data-i18n="pages.customerExperience">
-                    Customer Experience
-                </h2>
             </div>
             
             <div class="content-wrapper" style="max-width: 900px; margin: 0 auto;">
@@ -919,7 +959,7 @@ background-color: rgba(0, 0, 0, 0.5);
     <div class="footerUpper containerMax d-flex justify-space-between align-center">
         <!-- Logo placeholder -->
         <div class="footerLogo" style="display: block;">
-          <img src="images/logo.png" alt="Logo" style="height: 120px; width: auto;">
+          <img src="images/logo.png" alt="Logo" style="height: 80px; width: auto;">
         </div>
 
         <ul class="socialmedialist list-none footerSocialIcons d-flex"><li class="linkedin">
