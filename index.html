@@ -147,7 +147,7 @@
           background: transparent;
           border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 6px;
-          color: #ffffff;
+          color: #ffffff !important;
           font-size: 14px;
           font-weight: 500;
           cursor: pointer;
@@ -166,14 +166,100 @@
           font-weight: 600;
           letter-spacing: 0.5px;
           min-width: 28px;
-          color: #ffffff;
+          color: #ffffff !important;
+          transition: color 0.3s ease;
         }
         .language-arrow {
-          transition: transform 0.3s ease;
-          color: #ffffff;
+          transition: transform 0.3s ease, color 0.3s ease;
+          color: #ffffff !important;
         }
         .language-selector.active .language-arrow {
           transform: rotate(180deg);
+        }
+        /* Language selector styles when header has white background - change to blue */
+        /* Only apply blue when header explicitly has white background */
+        .header.white .language-selector-btn,
+        .header[style*="background-color: white"] .language-selector-btn,
+        .header[style*="background-color:#fff"] .language-selector-btn,
+        .header[style*="background-color:#ffffff"] .language-selector-btn,
+        .header[style*="background: white"] .language-selector-btn,
+        .header[style*="background:#fff"] .language-selector-btn,
+        .header[style*="background:#ffffff"] .language-selector-btn,
+        .header[style*="background-color:white"] .language-selector-btn,
+        .header[style*="background-color:#FFF"] .language-selector-btn,
+        .header[style*="background-color:#FFFFFF"] .language-selector-btn {
+          color: #1E6BD6 !important;
+          border-color: rgba(30, 107, 214, 0.3) !important;
+        }
+        .header.white .language-code,
+        .header[style*="background-color: white"] .language-code,
+        .header[style*="background-color:#fff"] .language-code,
+        .header[style*="background-color:#ffffff"] .language-code,
+        .header[style*="background: white"] .language-code,
+        .header[style*="background:#fff"] .language-code,
+        .header[style*="background:#ffffff"] .language-code,
+        .header[style*="background-color:white"] .language-code,
+        .header[style*="background-color:#FFF"] .language-code,
+        .header[style*="background-color:#FFFFFF"] .language-code {
+          color: #1E6BD6 !important;
+        }
+        .header.white .language-arrow,
+        .header[style*="background-color: white"] .language-arrow,
+        .header[style*="background-color:#fff"] .language-arrow,
+        .header[style*="background-color:#ffffff"] .language-arrow,
+        .header[style*="background: white"] .language-arrow,
+        .header[style*="background:#fff"] .language-arrow,
+        .header[style*="background:#ffffff"] .language-arrow,
+        .header[style*="background-color:white"] .language-arrow,
+        .header[style*="background-color:#FFF"] .language-arrow,
+        .header[style*="background-color:#FFFFFF"] .language-arrow {
+          color: #1E6BD6 !important;
+        }
+        .header.white .language-selector-btn:hover,
+        .header[style*="background-color: white"] .language-selector-btn:hover,
+        .header[style*="background-color:#fff"] .language-selector-btn:hover,
+        .header[style*="background-color:#ffffff"] .language-selector-btn:hover,
+        .header[style*="background: white"] .language-selector-btn:hover,
+        .header[style*="background:#fff"] .language-selector-btn:hover,
+        .header[style*="background:#ffffff"] .language-selector-btn:hover,
+        .header[style*="background-color:white"] .language-selector-btn:hover,
+        .header[style*="background-color:#FFF"] .language-selector-btn:hover,
+        .header[style*="background-color:#FFFFFF"] .language-selector-btn:hover {
+          background: rgba(30, 107, 214, 0.1) !important;
+          border-color: rgba(30, 107, 214, 0.5) !important;
+        }
+        .header.white .language-selector-btn:focus,
+        .header[style*="background-color: white"] .language-selector-btn:focus,
+        .header[style*="background-color:#fff"] .language-selector-btn:focus,
+        .header[style*="background-color:#ffffff"] .language-selector-btn:focus,
+        .header[style*="background: white"] .language-selector-btn:focus,
+        .header[style*="background:#fff"] .language-selector-btn:focus,
+        .header[style*="background:#ffffff"] .language-selector-btn:focus,
+        .header[style*="background-color:white"] .language-selector-btn:focus,
+        .header[style*="background-color:#FFF"] .language-selector-btn:focus,
+        .header[style*="background-color:#FFFFFF"] .language-selector-btn:focus {
+          outline: 2px solid rgba(30, 107, 214, 0.5) !important;
+        }
+        /* Ensure language selector stays white by default and when header is transparent */
+        .language-selector-btn,
+        .language-code,
+        .language-arrow,
+        .header.transparentHeader .language-selector-btn,
+        .header.transparentHeader .language-code,
+        .header.transparentHeader .language-arrow {
+          color: #ffffff !important;
+        }
+        .header.transparentHeader .language-selector-btn {
+          border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        /* Search icon in header - make it blue */
+        .headerSearchArea .searchIcon,
+        .headerSearchArea .searchIcon i,
+        .headerSearchArea .fa-search,
+        .searchWrapper .searchIcon,
+        .searchWrapper .searchIcon i,
+        .searchWrapper .fa-search {
+          color: #1E6BD6 !important;
         }
         .language-dropdown-menu {
           position: absolute;
@@ -2736,6 +2822,67 @@ font-size: 1.5rem;
 
 <script src="js/simple-translator.js"></script>
 <script>
+// Language Selector Color Update Function - Updates color when header changes
+(function() {
+  function updateLanguageSelectorColor() {
+    const header = document.querySelector('.header');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageCode = document.querySelector('.language-code');
+    const languageArrow = document.querySelector('.language-arrow');
+    
+    if (!header || !languageBtn) return;
+    
+    // Check if header has white background - be more specific
+    const headerStyle = window.getComputedStyle(header);
+    const bgColor = headerStyle.backgroundColor;
+    // Only consider it white if explicitly white, not just if transparentHeader is missing
+    const isWhite = header.classList.contains('white') || 
+                    (bgColor === 'rgb(255, 255, 255)' || bgColor === 'rgba(255, 255, 255, 1)') ||
+                    header.style.backgroundColor === 'white' ||
+                    header.style.backgroundColor === '#fff' ||
+                    header.style.backgroundColor === '#ffffff' ||
+                    header.style.backgroundColor === 'rgb(255, 255, 255)';
+    
+    // Update colors - default to white, only blue when header is white
+    if (isWhite) {
+      languageBtn.style.color = '#1E6BD6';
+      languageBtn.style.borderColor = 'rgba(30, 107, 214, 0.3)';
+      if (languageCode) languageCode.style.color = '#1E6BD6';
+      if (languageArrow) languageArrow.style.color = '#1E6BD6';
+    } else {
+      // Force white when header is not white
+      languageBtn.style.color = '#ffffff !important';
+      languageBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+      if (languageCode) languageCode.style.color = '#ffffff';
+      if (languageArrow) languageArrow.style.color = '#ffffff';
+    }
+  }
+  
+  // Watch for header changes
+  const header = document.querySelector('.header');
+  if (header) {
+    // MutationObserver to watch for class and style changes
+    const observer = new MutationObserver(updateLanguageSelectorColor);
+    observer.observe(header, {
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
+    
+    // Also check on scroll
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(updateLanguageSelectorColor, 10);
+    });
+    
+    // Initial check
+    updateLanguageSelectorColor();
+    
+    // Check periodically as fallback
+    setInterval(updateLanguageSelectorColor, 500);
+  }
+})();
+
 // Language Selector Functionality with Translation - Optimized to prevent flickering
 (function() {
   // Initialize translator

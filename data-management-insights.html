@@ -822,14 +822,35 @@
 
 <style>
 .kf_home_page_banner .hero_bg:before{
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
 background-color: rgba(0, 0, 0, 0.5);
+z-index: 1;
 }
 .kf_home_page_banner .hero_bg {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    position: relative !important;
+    background-image: url(images/Data\ Management.png) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: #00072D !important;
+    width: 100% !important;
     min-height: 60vh !important;
     height: 60vh !important;
+}
+.kf_home_page_banner .hero_bg .video-version,
+.kf_home_page_banner .hero_bg .desktop-video {
+    display: none !important;
+}
+.kf_home_page_banner .hero_bg .bg-image.mobile {
+    display: none !important;
 }
 @media (max-width: 768px) {
     .kf_home_page_banner .hero_bg {
@@ -845,6 +866,7 @@ background-color: rgba(0, 0, 0, 0.5);
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    z-index: 2 !important;
 }
 .kf_home_page_banner .hero-text h1,
 .kf_home_page_banner .hero-text h1 .skew-text {
