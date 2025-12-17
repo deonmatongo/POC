@@ -170,7 +170,7 @@
           opacity: 0.6;
           user-select: none;
         }
-        /* Language selector styles when header has white background - change to blue */
+        /* Language selector styles when header/navbar has white background - change to blue */
         .header.white .language-link,
         .header[style*="background-color: white"] .language-link,
         .header[style*="background-color:#fff"] .language-link,
@@ -180,7 +180,19 @@
         .header[style*="background:#ffffff"] .language-link,
         .header[style*="background-color:white"] .language-link,
         .header[style*="background-color:#FFF"] .language-link,
-        .header[style*="background-color:#FFFFFF"] .language-link {
+        .header[style*="background-color:#FFFFFF"] .language-link,
+        .navbarnew[style*="background-color: white"] .language-link,
+        .navbarnew[style*="background-color:#fff"] .language-link,
+        .navbarnew[style*="background-color:#ffffff"] .language-link,
+        .navbarnew[style*="background: white"] .language-link,
+        .navbarnew[style*="background:#fff"] .language-link,
+        .navbarnew[style*="background:#ffffff"] .language-link,
+        .mainHeader[style*="background-color: white"] .language-link,
+        .mainHeader[style*="background-color:#fff"] .language-link,
+        .mainHeader[style*="background-color:#ffffff"] .language-link,
+        .pageHeaderWrapper[style*="background-color: white"] .language-link,
+        .pageHeaderWrapper[style*="background-color:#fff"] .language-link,
+        .pageHeaderWrapper[style*="background-color:#ffffff"] .language-link {
           color: #1E6BD6 !important;
         }
         .header.white .language-separator,
@@ -192,7 +204,19 @@
         .header[style*="background:#ffffff"] .language-separator,
         .header[style*="background-color:white"] .language-separator,
         .header[style*="background-color:#FFF"] .language-separator,
-        .header[style*="background-color:#FFFFFF"] .language-separator {
+        .header[style*="background-color:#FFFFFF"] .language-separator,
+        .navbarnew[style*="background-color: white"] .language-separator,
+        .navbarnew[style*="background-color:#fff"] .language-separator,
+        .navbarnew[style*="background-color:#ffffff"] .language-separator,
+        .navbarnew[style*="background: white"] .language-separator,
+        .navbarnew[style*="background:#fff"] .language-separator,
+        .navbarnew[style*="background:#ffffff"] .language-separator,
+        .mainHeader[style*="background-color: white"] .language-separator,
+        .mainHeader[style*="background-color:#fff"] .language-separator,
+        .mainHeader[style*="background-color:#ffffff"] .language-separator,
+        .pageHeaderWrapper[style*="background-color: white"] .language-separator,
+        .pageHeaderWrapper[style*="background-color:#fff"] .language-separator,
+        .pageHeaderWrapper[style*="background-color:#ffffff"] .language-separator {
           color: #1E6BD6 !important;
         }
         /* Ensure language selector stays white by default and when header is transparent */
@@ -209,13 +233,307 @@
         .searchWrapper .fa-search {
           color: #1E6BD6 !important;
         }
+        
+        /* Responsive Header Styles */
+        .header {
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          transition: all 0.3s ease;
+          width: 100%;
+        }
+        .pageHeaderWrapper {
+          width: 100%;
+        }
+        .navbarnew {
+          padding: 15px 20px;
+          transition: all 0.3s ease;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .nav-logo {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+        }
+        .nav-logo img {
+          height: 80px;
+          width: auto;
+          transition: height 0.3s ease;
+          display: block;
+        }
+        .headerSearchArea {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+        
+        /* Desktop: Show full menu, hide hamburger */
+        .navbar.main-menu {
+          display: flex;
+        }
+        .hamburger {
+          display: none;
+        }
+        
+        /* Tablet (768px - 1024px) */
+        @media (max-width: 1024px) {
+          .nav-logo img {
+            height: 60px;
+          }
+          .navbarnew {
+            padding: 12px 15px;
+          }
+        }
+        
+        /* Mobile (max-width: 768px) */
         @media (max-width: 768px) {
+          .navbarnew {
+            padding: 12px 15px;
+            flex-wrap: nowrap;
+            align-items: center;
+            min-height: 60px;
+          }
+          .nav-logo {
+            flex-shrink: 0;
+            margin-right: auto;
+          }
+          .nav-logo img {
+            height: 45px;
+            max-width: 120px;
+          }
+          
+          /* Header search area - language selector and hamburger */
+          .headerSearchArea {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            flex-shrink: 0;
+          }
           .language-selector-wrapper {
-            margin-right: 10px;
+            margin-right: 0;
+          }
+          .language-selector {
+            gap: 6px;
           }
           .language-link {
-            padding: 6px 10px;
+            padding: 8px 10px;
             font-size: 13px;
+            min-width: 36px;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+          }
+          .language-separator {
+            font-size: 13px;
+          }
+          
+          /* Hide desktop menu, show hamburger */
+          .navbar.main-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile */
+            background: #ffffff;
+            z-index: 9999;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 70px 20px 30px;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+          }
+          .navbar.main-menu.active {
+            display: block;
+            transform: translateX(0);
+          }
+          
+          /* Hamburger button - larger touch target */
+          .hamburger {
+            display: block;
+            margin-left: 0;
+            flex-shrink: 0;
+          }
+          .hamburger button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+          }
+          .hamburger button span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background-color: #1E6BD6;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+          }
+          /* Hamburger color on white header */
+          .header.white .hamburger button span,
+          .header[style*="background-color: white"] .hamburger button span,
+          .header[style*="background-color:#fff"] .hamburger button span,
+          .header[style*="background-color:#ffffff"] .hamburger button span,
+          .navbarnew[style*="background-color: white"] .hamburger button span,
+          .navbarnew[style*="background-color:#fff"] .hamburger button span,
+          .navbarnew[style*="background-color:#ffffff"] .hamburger button span {
+            background-color: #1E6BD6;
+          }
+          /* Hamburger color on transparent header */
+          .header:not(.white) .hamburger button span {
+            background-color: #ffffff;
+          }
+          .hamburger.active button span.top {
+            transform: rotate(45deg) translate(6px, 6px);
+          }
+          .hamburger.active button span.bottom {
+            transform: rotate(-45deg) translate(6px, -6px);
+          }
+          
+          /* Mobile menu styles */
+          .navbar.main-menu.active .navItemsWrapper {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+            padding: 0;
+          }
+          .navbar.main-menu.active .nav-item {
+            width: 100%;
+            margin-bottom: 0;
+            border-bottom: 1px solid #e5e5e5;
+          }
+          .navbar.main-menu.active .nav-item:last-child {
+            border-bottom: none;
+          }
+          .navbar.main-menu.active .nav-item a {
+            color: #1B1F23;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 16px 0;
+            display: block;
+            width: 100%;
+            -webkit-tap-highlight-color: rgba(27, 31, 35, 0.1);
+            transition: background-color 0.2s ease;
+          }
+          .navbar.main-menu.active .nav-item a:active {
+            background-color: #f5f5f5;
+          }
+          .navbar.main-menu.active .subMenuWrapper {
+            position: static;
+            display: block;
+            box-shadow: none;
+            background: #f8f9fa;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 20px;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e5;
+          }
+          .navbar.main-menu.active .subMenuWrapper .sub_wrapper {
+            max-width: 100%;
+          }
+          .navbar.main-menu.active .subMenuWrapper .has-menu li {
+            margin-bottom: 12px;
+          }
+          .navbar.main-menu.active .subMenuWrapper .has-menu li a {
+            font-size: 16px;
+            padding: 12px 0;
+            color: #1E6BD6;
+          }
+          .navbar.main-menu.active .subMenuWrapper .has-menu li p {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+          }
+          
+          /* Hide saved folder on mobile */
+          .savedFolder {
+            display: none;
+          }
+        }
+        
+        /* Small Mobile (max-width: 480px) */
+        @media (max-width: 480px) {
+          .navbarnew {
+            padding: 10px 12px;
+            min-height: 56px;
+          }
+          .nav-logo img {
+            height: 38px;
+            max-width: 100px;
+          }
+          .headerSearchArea {
+            gap: 6px;
+          }
+          .language-link {
+            padding: 7px 8px;
+            font-size: 12px;
+            min-width: 32px;
+          }
+          .language-separator {
+            font-size: 12px;
+          }
+          .hamburger button {
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+          }
+          .hamburger button span {
+            width: 22px;
+            height: 2px;
+          }
+          .navbar.main-menu.active {
+            padding: 65px 15px 25px;
+          }
+          .navbar.main-menu.active .nav-item a {
+            font-size: 16px;
+            padding: 14px 0;
+          }
+          .navbar.main-menu.active .subMenuWrapper {
+            padding: 15px;
+          }
+          .navbar.main-menu.active .subMenuWrapper .has-menu li a {
+            font-size: 15px;
+            padding: 10px 0;
+          }
+          .savedFolder {
+            display: none;
+          }
+        }
+        
+        /* Very Small Mobile (max-width: 360px) */
+        @media (max-width: 360px) {
+          .navbarnew {
+            padding: 8px 10px;
+            min-height: 52px;
+          }
+          .nav-logo img {
+            height: 35px;
+            max-width: 90px;
+          }
+          .language-link {
+            padding: 6px 7px;
+            font-size: 11px;
+            min-width: 30px;
+          }
+          .hamburger button {
+            width: 36px;
+            height: 36px;
+            padding: 7px;
+          }
+          .hamburger button span {
+            width: 20px;
           }
         }
       </style>
@@ -704,39 +1022,10 @@
       <li class="savedFolder">
         <a href="/saved"><i class="fas fa-folder" aria-hidden="true"></i><span data-i18n="homepage.saved">SAVED</span></a>
       </li>
-      <li class="searchWrapper d-flex align-center" id="searchNavMobileWrapper">
-        <span class="searchIcon"><i class="fas fa-search" aria-hidden="true"></i></span>
-        <form id="searchNavMobile" class="searchBarForm d-flex align-center" action="/seachresult" @submit.prevent="doSearch">
-          <span class="searchIcon"><i class="fas fa-search" aria-hidden="true"></i></span>
-          <span class="cludo-voice-icon custom-voice-icon" title="Search by voice" v-on:click="startVoiceSearch"><i class="fas fa-microphone" aria-hidden="true"></i></span>
-          <input id="searchNavInput" name="query" v-model="query" @focus="searchBoxInputFocusEvent" @blur="searchBoxInputBlurEvent" @keyup.up="searchInputKeyUp" @keyup.down="searchInputKeyDown" type="text" class="searchBar" placeholder="Search our insights, capabilities and experts" aria-label="Search" aria-describedby="Search" role="combobox" aria-autocomplete="list">
-          <div v-if="instantSuggestions && instantSuggestions.length > 0 && showInstantSuggestions == true" id="search_navbar_autocomplete" class="search_navbar_autocomplete instant_suggestions">
-            <h3>{{suggestedHeader}}</h3>
-            <ul v-if="instantSuggestions && instantSuggestions.length > 0 && showInstantSuggestions == true" id="search_autocomplete-list" class="instant-suggestions-list" role="listbox" aria-describedby="autocomplete_hint">
-              
-                <template v-for="(index, item) in instantSuggestions">
-    <li id="cludo-list-item-{{ index }}" class="item" role="option" aria-label="{{ item }}" @mousedown="autoCompleteClicked">
-        {{ item }}
-    </li>
-</template>
-              
-            </ul>
-          </div>
-          <ul v-if="autoCompleteSuggestions && autoCompleteSuggestions.length > 0 && showAutoComplete == true" id="search_navbar_autocomplete" class="autocomplete-suggestions" role="listbox" aria-describedby="autocomplete_hint">
-            
-              <template v-for="(index, item) in autoCompleteSuggestions">
-    <li id="cludo-list-item-{{ index }}" class="item" role="option" aria-label="{{ item }}" @mousedown="autoCompleteClicked">
-        {{ item }}
-    </li>
-</template>
-            
-          </ul>
-        </form>
-        <div class="crossSearchBarBtn" @mousedown="searchBoxInputBlurEvent"></div>
-      </li>
       <li class="hamburger">
         <button aria-labelledby="menu bar" value="menu bar" type="button">
-          <span class="top bottom"></span>
+          <span class="top"></span>
+          <span class="bottom"></span>
         </button>
         <!--<button class="crossbutton"><i class="fas fa-times"></i></button>-->
       </li>
@@ -1057,13 +1346,6 @@ z-index: 1;
          
             <div class="hero_bg videoBg">
                 
-                <div class="video-version">
-				 <video id="videopath" class="desktop-video" playsinline="" autoplay="" muted="">
-                	<source x-cq-linkchecker="valid" src="media/home-page-video-bkgrd-desktop.mp4" type="video/mp4">
-              	</video>
-                
-                 </div>
-                 
                 <div style="background-image: url(images/BMT_Header_567x677.jpg);" class="bg-image mobile"></div>
                 
                 <!-- Add a div to hold the selected image -->
@@ -1424,37 +1706,6 @@ z-index: 1;
 </div>
 
 </div></div>
-<div class="videocomponent aem-GridColumn aem-GridColumn--default--12">
-<div class="html-video ">
-
-
-  <div class="outer-container container-max ">
-    <div class="embed-container responsive-video">
-    <span class="play-icon">
-    <i class="fa-solid fa-play"></i>
-    </span>
-  <video class="video-js" controls="" preload="auto" width="640" height="264" poster="/content/dam/kornferry-v2/video-posters/plus-video.jpg" data-setup="{}">
-    <source type="video/mp4" src="media/plus-video.mp4">
-    
-      <track src="plus-video.vtt" kind="subtitles" srclang="English" label="English">
-    
-      <track src="plus-video.zh-si.zh.vtt" kind="subtitles" srclang="Chinese" label="Chinese">
-    
-      <track src="plus-video.fr.vtt" kind="subtitles" srclang="French" label="French">
-    
-      <track src="plus-video.de.vtt" kind="subtitles" srclang="German" label="German">
-    
-      <track src="plus-video.ja.vtt" kind="subtitles" srclang="Japanese" label="Japanese">
-    
-      <track src="plus-video.pt-br.pt.vtt" kind="subtitles" srclang="Portuguese (Brazil)" label="Portuguese (Brazil)">
-    
-      <track src="plus-video.es-la.es.vtt" kind="subtitles" srclang="Spanish (LATAM)" label="Spanish (LATAM)">
-    
-  </video>
-</div>
-</div>
-</div>
-</div>
 <div class="htmlcomponent aem-GridColumn aem-GridColumn--default--12">
 
 <div class="htmlContent"><!-- responsive anchor tag -->
@@ -2009,13 +2260,6 @@ color: #fff !important;
 }
 .kf_home_page_banner .feature-multified-wrapper .feature-item .feature-text a span {
 font-size: 1.75rem;
-}
-.html-video .outer-container.container-max {
-margin-top: 0;
-}
-.videocomponent {
-background: #1B1F23;
-
 }
 .homepagemarketoForm.newHomeMktoForm {
 margin-top: -2px;
@@ -2684,64 +2928,111 @@ font-size: 1.5rem;
 
 <script src="js/simple-translator.js"></script>
 <script>
-// Language Selector Color Update Function - Updates color when header changes
+// Navbar scroll behavior - make navbar white on scroll (same as home page)
 (function() {
-  function updateLanguageSelectorColor() {
+  function handleNavbarScroll() {
     const header = document.querySelector('.header');
-    const languageBtn = document.getElementById('languageBtn');
-    const languageCode = document.querySelector('.language-code');
-    const languageArrow = document.querySelector('.language-arrow');
+    const navbar = document.querySelector('.navbarnew, .mainHeader');
+    const scrollY = window.scrollY || window.pageYOffset;
     
-    if (!header || !languageBtn) return;
-    
-    // Check if header has white background - be more specific
-    const headerStyle = window.getComputedStyle(header);
-    const bgColor = headerStyle.backgroundColor;
-    // Only consider it white if explicitly white, not just if transparentHeader is missing
-    const isWhite = header.classList.contains('white') || 
-                    (bgColor === 'rgb(255, 255, 255)' || bgColor === 'rgba(255, 255, 255, 1)') ||
-                    header.style.backgroundColor === 'white' ||
-                    header.style.backgroundColor === '#fff' ||
-                    header.style.backgroundColor === '#ffffff' ||
-                    header.style.backgroundColor === 'rgb(255, 255, 255)';
-    
-    // Update colors - default to white, only blue when header is white
-    if (isWhite) {
-      languageBtn.style.color = '#1E6BD6';
-      languageBtn.style.borderColor = 'rgba(30, 107, 214, 0.3)';
-      if (languageCode) languageCode.style.color = '#1E6BD6';
-      if (languageArrow) languageArrow.style.color = '#1E6BD6';
+    // Add white background when scrolled past 50px
+    if (scrollY > 50) {
+      if (header) {
+        header.classList.add('white');
+        header.style.backgroundColor = '#ffffff';
+      }
+      if (navbar) {
+        navbar.classList.add('white');
+        navbar.style.backgroundColor = '#ffffff';
+      }
     } else {
-      // Force white when header is not white
-      languageBtn.style.color = '#ffffff !important';
-      languageBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-      if (languageCode) languageCode.style.color = '#ffffff';
-      if (languageArrow) languageArrow.style.color = '#ffffff';
+      if (header) {
+        header.classList.remove('white');
+        header.style.backgroundColor = '';
+      }
+      if (navbar) {
+        navbar.classList.remove('white');
+        navbar.style.backgroundColor = '';
+      }
     }
   }
   
-  // Watch for header changes
-  const header = document.querySelector('.header');
-  if (header) {
-    // MutationObserver to watch for class and style changes
-    const observer = new MutationObserver(updateLanguageSelectorColor);
-    observer.observe(header, {
+  // Run on page load and scroll
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      handleNavbarScroll();
+      window.addEventListener('scroll', handleNavbarScroll);
+    });
+  } else {
+    handleNavbarScroll();
+    window.addEventListener('scroll', handleNavbarScroll);
+  }
+})();
+
+// Language Selector Color Update Function - Updates color when header/navbar changes
+(function() {
+  function updateLanguageSelectorForWhiteNav() {
+    const navbar = document.querySelector('.navbarnew, .mainHeader, .pageHeaderWrapper, .header');
+    const languageLinks = document.querySelectorAll('.language-link');
+    const languageSeparator = document.querySelector('.language-separator');
+    
+    if (!navbar || !languageLinks.length) return;
+    
+    // Check computed style for white background
+    const computedStyle = window.getComputedStyle(navbar);
+    const bgColor = computedStyle.backgroundColor;
+    const isWhite = bgColor === 'rgb(255, 255, 255)' || 
+                    bgColor === 'rgba(255, 255, 255, 1)' ||
+                    navbar.classList.contains('white') ||
+                    navbar.style.backgroundColor === 'white' ||
+                    navbar.style.backgroundColor === '#fff' ||
+                    navbar.style.backgroundColor === '#ffffff' ||
+                    navbar.style.backgroundColor === 'rgb(255, 255, 255)';
+    
+    // Update colors
+    if (isWhite) {
+      languageLinks.forEach(link => {
+        link.style.color = '#1E6BD6';
+      });
+      if (languageSeparator) {
+        languageSeparator.style.color = '#1E6BD6';
+      }
+    } else {
+      languageLinks.forEach(link => {
+        link.style.color = '#ffffff';
+      });
+      if (languageSeparator) {
+        languageSeparator.style.color = '#ffffff';
+      }
+    }
+  }
+  
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateLanguageSelectorForWhiteNav);
+  } else {
+    updateLanguageSelectorForWhiteNav();
+  }
+  
+  // Watch for changes
+  const navbar = document.querySelector('.navbarnew, .mainHeader, .pageHeaderWrapper, .header');
+  if (navbar) {
+    const observer = new MutationObserver(updateLanguageSelectorForWhiteNav);
+    observer.observe(navbar, {
       attributes: true,
-      attributeFilter: ['class', 'style']
+      attributeFilter: ['class', 'style'],
+      subtree: true
     });
     
-    // Also check on scroll
+    // Also check on scroll (in case background changes on scroll)
     let scrollTimeout;
     window.addEventListener('scroll', function() {
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(updateLanguageSelectorColor, 10);
+      scrollTimeout = setTimeout(updateLanguageSelectorForWhiteNav, 50);
     });
     
-    // Initial check
-    updateLanguageSelectorColor();
-    
     // Check periodically as fallback
-    setInterval(updateLanguageSelectorColor, 500);
+    setInterval(updateLanguageSelectorForWhiteNav, 500);
   }
 })();
 
@@ -2905,6 +3196,56 @@ font-size: 1.5rem;
       translateMarketoFormAsync(currentLanguage);
     });
   }
+})();
+
+// Hamburger Menu Toggle Functionality
+(function() {
+  const hamburger = document.querySelector('.hamburger');
+  const hamburgerButton = hamburger ? hamburger.querySelector('button') : null;
+  const mobileMenu = document.querySelector('.navbar.main-menu');
+  
+  if (!hamburger || !hamburgerButton || !mobileMenu) return;
+  
+  function toggleMenu() {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+  }
+  
+  hamburgerButton.addEventListener('click', toggleMenu);
+  
+  // Close menu when clicking on a link
+  const menuLinks = mobileMenu.querySelectorAll('a');
+  menuLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', function(event) {
+    if (window.innerWidth <= 768 && 
+        mobileMenu.classList.contains('active') &&
+        !mobileMenu.contains(event.target) &&
+        !hamburger.contains(event.target)) {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Close menu on window resize if it becomes desktop size
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
 })();
 </script>
 </body></html>
